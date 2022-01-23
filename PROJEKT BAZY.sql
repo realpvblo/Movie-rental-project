@@ -6,79 +6,79 @@
 
 CREATE TABLE  Pracownik
    (
-      Pracownik_ID VARCHAR2(50) PRIMARY KEY, 
+	   Pracownik_ID VARCHAR2(50) PRIMARY KEY, 
 	   Imię VARCHAR2(30) NOT NULL, 
 	   Nazwisko VARCHAR2(50) NOT NULL, 
-      Email VARCHAR2(50) DEFAULT 'BRAK',
+	   Email VARCHAR2(50) DEFAULT 'BRAK',
 	   Telefon VARCHAR2(50) UNIQUE, 
 	   Stanowisko VARCHAR2(50) 
    );
 
 CREATE TABLE  Klient
    (
-      Klient_ID VARCHAR2(50) PRIMARY KEY, 
+	   Klient_ID VARCHAR2(50) PRIMARY KEY, 
 	   Imię VARCHAR2(30) NOT NULL, 
 	   Nazwisko VARCHAR2(50) NOT NULL,
-      Email VARCHAR2(50) DEFAULT 'BRAK',
+	   Email VARCHAR2(50) DEFAULT 'BRAK',
 	   Telefon VARCHAR2(50) UNIQUE,
-      Wiek NUMBER(3,0),
-      CONSTRAINT Ch_Wiek CHECK (Wiek > 18) 
+	   Wiek NUMBER(3,0),
+	   CONSTRAINT Ch_Wiek CHECK (Wiek > 18) 
    );
 
 CREATE TABLE  Lokalizacja
    (
-      Lokalizacja_ID VARCHAR2(50) PRIMARY KEY, 
+	   Lokalizacja_ID VARCHAR2(50) PRIMARY KEY, 
 	   Miasto VARCHAR2(30) NOT NULL, 
 	   Ulica VARCHAR2(50) NOT NULL,
-      Godzina_Otwarcia NUMBER(2,0),
+	   Godzina_Otwarcia NUMBER(2,0),
 	   Godzina_Zamkniecia NUMBER(2,0),
-      CONSTRAINT Ch_Godz CHECK (Godzina_Zamkniecia > Godzina_Otwarcia)
+	   CONSTRAINT Ch_Godz CHECK (Godzina_Zamkniecia > Godzina_Otwarcia)
    );
 
 CREATE TABLE  Reżyser 
    (
-      Reżyser_ID VARCHAR2(50) PRIMARY KEY, 
+	   Reżyser_ID VARCHAR2(50) PRIMARY KEY, 
 	   Imię VARCHAR2(30) NOT NULL, 
 	   Nazwisko VARCHAR2(50) NOT NULL,
-      Data_Urodzenia DATE,
-      CONSTRAINT Ch_Data CHECK ('SYSDATE' > 'Data_Urodzenia'),
+	   Data_Urodzenia DATE,
+	   CONSTRAINT Ch_Data CHECK ('SYSDATE' > 'Data_Urodzenia'),
 	   Miejsce_Urodzenia VARCHAR2(50)
    );
 
 CREATE TABLE  Aktor
    (
-      Aktor_ID VARCHAR2(50) PRIMARY KEY, 
+	   Aktor_ID VARCHAR2(50) PRIMARY KEY, 
 	   Imię VARCHAR2(30) NOT NULL, 
 	   Nazwisko VARCHAR2(50) NOT NULL,
-      Data_Urodzenia DATE,
-      CONSTRAINT Ch_Data2 CHECK ('SYSDATE' > 'Data_Urodzenia'),
+	   Data_Urodzenia DATE,
+	   CONSTRAINT Ch_Data2 CHECK ('SYSDATE' > 'Data_Urodzenia'),
 	   Miejsce_Urodzenia VARCHAR2(50)
    );
 
 CREATE TABLE  Film
    (
-      Film_ID VARCHAR2(50) PRIMARY KEY, 
+	   Film_ID VARCHAR2(50) PRIMARY KEY, 
 	   Reżyser_ID VARCHAR2(30), 
-      Aktor_ID VARCHAR2(30), 
+	   Aktor_ID VARCHAR2(30), 
 	   Tytuł VARCHAR2(50),
-      Rok_Produkcji VARCHAR2(50),
+	   Rok_Produkcji VARCHAR2(50),
 	   Gatunek VARCHAR2(50),
-      FOREIGN KEY (Reżyser_ID) REFERENCES Reżyser(Reżyser_ID),
-      FOREIGN KEY (Aktor_ID) REFERENCES Aktor(Aktor_ID)
+	   FOREIGN KEY (Reżyser_ID) REFERENCES Reżyser(Reżyser_ID),
+	   FOREIGN KEY (Aktor_ID) REFERENCES Aktor(Aktor_ID)
    );
 
 CREATE TABLE  Wypozyczenie 
    (
-      Wypożyczenie_ID VARCHAR2(50) PRIMARY KEY, 
+	   Wypożyczenie_ID VARCHAR2(50) PRIMARY KEY, 
 	   Klient_ID VARCHAR2(50),
 	   Pracownik_ID VARCHAR2(50),
-      Film_ID VARCHAR2(50),
+	   Film_ID VARCHAR2(50),
 	   Lokalizacja_ID VARCHAR2(50),
-      FOREIGN KEY (Klient_ID) REFERENCES Klient(Klient_ID),
-      FOREIGN KEY (Pracownik_ID) REFERENCES Pracownik(Pracownik_ID),
-      FOREIGN KEY (Film_ID) REFERENCES Film(Film_ID),
-      FOREIGN KEY (Lokalizacja_ID) REFERENCES Lokalizacja(Lokalizacja_ID),
-      CHECK (Klient_ID != Pracownik_ID)
+	   FOREIGN KEY (Klient_ID) REFERENCES Klient(Klient_ID),
+	   FOREIGN KEY (Pracownik_ID) REFERENCES Pracownik(Pracownik_ID),
+	   FOREIGN KEY (Film_ID) REFERENCES Film(Film_ID),
+	   FOREIGN KEY (Lokalizacja_ID) REFERENCES Lokalizacja(Lokalizacja_ID),
+	   CHECK (Klient_ID != Pracownik_ID)
    );
 
 /* INSERT PRACOWNIK */
